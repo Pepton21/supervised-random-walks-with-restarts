@@ -3,7 +3,7 @@
 #   Author: Petar Tonkovikj                              #
 #                                                        #
 #   General Notation:                                    #
-#   N - number of nodes                                  #
+#   V - number of nodes                                  #
 #   S - number of layers                                 #
 #   W - number of attributes                             #
 #                                                        #
