@@ -72,7 +72,7 @@ def generate_edge_strength_matrices(w, feature_vector_matrix, adjacency_matrix):
 #   edge strengths with respect to the parameter vector w       #
                                                           #######
 
-def generate_multiplex_edge_stregth_matrix(w, feature_vector_matrices, adjacency_matrices, layer_transitions):
+def generate_multiplex_edge_strength_matrices(w, feature_vector_matrices, adjacency_matrices, layer_transitions):
     num_nodes = feature_vector_matrices.shape[1]
     num_layers = feature_vector_matrices.shape[0]
     num_features = feature_vector_matrices.shape[3]
