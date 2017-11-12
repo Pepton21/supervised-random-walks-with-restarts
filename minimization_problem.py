@@ -3,7 +3,7 @@
 #   Author: Petar Tonkovikj                              #
 #                                                        #
 #   General Notation:                                    #
-#   V - number of nodes                                  #
+#   N - number of nodes                                  #
 #   S - number of layers                                 #
 #   W - number of attributes                             #
 #                                                        #
@@ -143,8 +143,9 @@ def goal_function_derivative_single_node(w, *args):
     pd = args[4]
     loss_func = args[5]
     adjacency_matrix = args[6]
+    layer_transitions = args[7]
 
-    edge_strengths, edge_strength_derivatives = tp.generate_edge_strength_matrices(w, feature_matrix, adjacency_matrix)
+    edge_strengths, edge_strength_derivatives = tp.generate_multiplex_edge_stregth_matrix(w, feature_matrix, adjacency_matrix, layer_transitions)
     Q, dQ = tp.generate_transition_probability_matrices(edge_strengths, edge_strength_derivatives, alpha, start_node)
 
     p, dp = PageRank(Q, dQ)
@@ -154,34 +155,3 @@ def goal_function_derivative_single_node(w, *args):
         for j in range(len(pd)):
             sum = sum + loss_derivative(p[pl[i]] - p[pd[j]], loss_func)*(dp[pl[i]] - dp[pd[j]])
     return 2*w + sum
-
-"""
-
-Not used!
-
-def goal_function_general(w, *args):
-    pl_matrix = args[0]
-    pd_matrix = args[1]
-    loss_func = args[2]
-    sum = 0
-    for k in range(pl_matrix.shape[0]):
-        for i in range(len(pl_matrix[k])):
-            for j in range(len(pd_matrix[k])):
-                sum = sum + loss(pl_matrix[k][i] - pd_matrix[k][j], loss_func)
-
-    return np.linalg.norm(w) + sum
-
-def goal_function_derivative_general(w, *args):
-    pl_matrix = args[0]
-    pd_matrix = args[1]
-    loss_func = args[2]
-    dp = args[3]
-    sum = 0
-    for k in range(pl_matrix.shape[0]):
-        for i in range(len(pl_matrix[k])):
-            for j in range(len(pd_matrix[k])):
-                sum = sum + loss_derivative(pl_matrix[k][i] - pd_matrix[k][j], loss_func)* (dp[i] - dp[j])
-
-    return 2*w + sum
-
-"""
